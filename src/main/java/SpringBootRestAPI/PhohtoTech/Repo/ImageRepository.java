@@ -1,12 +1,11 @@
 package SpringBootRestAPI.PhohtoTech.Repo;
 
 import SpringBootRestAPI.PhohtoTech.models.Image;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Marshaller;
-import jakarta.xml.bind.Unmarshaller;
 import org.springframework.stereotype.Repository;
-
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,20 +14,34 @@ import java.util.Optional;
 @Repository
 public class ImageRepository implements IImageRepository {
 
-    private final String XML_FILE_PATH = "/resources/ImageContext.xml";
+    private final String XML_FILE_PATH = "C:\\Users\\SAPIPA\\Desktop\\Study\\4th _semester\\Introductory_practice\\PhohtoTech\\src\\main\\resources\\ImageContext.xml";
     private final JAXBContext context;
 
-    public ImageRepository() throws JAXBException {
-        context = JAXBContext.newInstance(Image.class);
+    public ImageRepository() {
+        try {
+            context = JAXBContext.newInstance(Image.class);
+        } catch (JAXBException e) {
+            throw new RuntimeException(e);
+        }
     }
 
+    public static class ImageList {
+     private List<Image> images = new ArrayList<>();
+
+     public List<Image> getImages() {
+     return images;
+     }
+
+     public void setImages(List<Image> images) {
+     this.images = images;
+     }
+     }
 
     @Override
     public List<Image> findAll() throws JAXBException {
         Unmarshaller unmarshaller = context.createUnmarshaller();
-        String images = unmarshaller.unmarshal(new File(XML_FILE_PATH)).toString();
-        return null;
-        //return images != null ? images : new ArrayList<>();
+        ImageList images = (ImageList) unmarshaller.unmarshal(new File(XML_FILE_PATH));
+        return images.getImages();
     }
 
     @Override

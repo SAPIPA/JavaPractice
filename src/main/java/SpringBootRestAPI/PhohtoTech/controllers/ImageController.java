@@ -3,7 +3,7 @@ package SpringBootRestAPI.PhohtoTech.controllers;
 
 import SpringBootRestAPI.PhohtoTech.models.Image;
 import SpringBootRestAPI.PhohtoTech.services.IImageService;
-import jakarta.xml.bind.JAXBException;
+import javax.xml.bind.JAXBException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +15,9 @@ import java.util.Optional;
 @RequestMapping("images")
 public class ImageController {
 
-    @Autowired
     private IImageService iImageService;
 
+    @Autowired
     public ImageController (IImageService iImageService) {
         this.iImageService = iImageService;
     }

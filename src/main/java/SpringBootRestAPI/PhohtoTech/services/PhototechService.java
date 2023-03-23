@@ -15,9 +15,9 @@ public class PhototechService implements IPhototechService {
 
 
     @Qualifier("IPhototechRepository")
-    @Autowired
     private final IPhototechRepository iPhototechRepository;
 
+    @Autowired
     public PhototechService(@Qualifier("IPhototechRepository") IPhototechRepository iPhototechRepository) {
         this.iPhototechRepository = iPhototechRepository;
     }

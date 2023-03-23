@@ -1,7 +1,7 @@
 package SpringBootRestAPI.PhohtoTech.services;
 
 import SpringBootRestAPI.PhohtoTech.models.Image;
-import jakarta.xml.bind.JAXBException;
+import javax.xml.bind.JAXBException;
 
 import java.util.List;
 import java.util.Optional;
