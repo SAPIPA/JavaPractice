@@ -2,7 +2,6 @@ package SpringBootRestAPI.PhohtoTech.services;
 
 import SpringBootRestAPI.PhohtoTech.Repo.IImageRepository;
 import SpringBootRestAPI.PhohtoTech.models.Image;
-import javax.xml.bind.JAXBException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,22 +19,22 @@ public class ImageService implements IImageService{
     }
 
     @Override
-    public List<Image> getAllImages() throws JAXBException {
+    public List<Image> getAllImages(){
         return iImageRepository.findAll();
     }
 
     @Override
-    public Optional<Image> getImageByID(long id) throws JAXBException {
+    public Optional<Image> getImageByID(long id) {
         return iImageRepository.findById(id);
     }
 
     @Override
-    public Image createImage(Image image) throws JAXBException {
+    public Image createImage(Image image) {
         return iImageRepository.save(image);
     }
 
     @Override
-    public Image updateImage(Image image) throws JAXBException {
+    public Image updateImage(Image image) {
         return iImageRepository.save(image);
     }
 

@@ -1,11 +1,12 @@
 package SpringBootRestAPI.PhohtoTech.Repo;
 
 import SpringBootRestAPI.PhohtoTech.models.Image;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Repository;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,21 +38,23 @@ public class ImageRepository implements IImageRepository {
      }
      }
 
+    @SneakyThrows
     @Override
-    public List<Image> findAll() throws JAXBException {
+    public List<Image> findAll()  {
         Unmarshaller unmarshaller = context.createUnmarshaller();
         ImageList images = (ImageList) unmarshaller.unmarshal(new File(XML_FILE_PATH));
         return images.getImages();
     }
 
     @Override
-    public Optional<Image> findById(long id) throws JAXBException {
+    public Optional<Image> findById(long id)  {
         List<Image> images = findAll();
         return images.stream().filter(i -> i.getId() == id).findFirst();
     }
 
+    @SneakyThrows
     @Override
-    public Image save(Image image) throws JAXBException {
+    public Image save(Image image) {
         List<Image> images = findAll();
         long maxId = images.stream().mapToLong(Image::getId).max().orElse(0);
         image.setId(maxId + 1);
@@ -60,8 +63,9 @@ public class ImageRepository implements IImageRepository {
         return image;
     }
 
+    @SneakyThrows
     @Override
-    public Image delete(long id) throws JAXBException {
+    public Image delete(long id) {
         List<Image> images = findAll();
         Optional<Image> imageToDelete = images.stream().filter(i -> i.getId() == id).findFirst();
         if (imageToDelete.isPresent()) {

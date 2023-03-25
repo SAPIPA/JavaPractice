@@ -1,13 +1,19 @@
 package SpringBootRestAPI.PhohtoTech.models;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Image {
+    @XmlElement
     private Long id;
+    @XmlElement
     private String title;
-
+    @XmlElement
     private Long phototechId;
-
+    @XmlElement
     private String  path_of_the_samurai;
 
     public Long getId() {

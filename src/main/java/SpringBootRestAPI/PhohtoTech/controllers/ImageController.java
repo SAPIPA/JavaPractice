@@ -3,7 +3,6 @@ package SpringBootRestAPI.PhohtoTech.controllers;
 
 import SpringBootRestAPI.PhohtoTech.models.Image;
 import SpringBootRestAPI.PhohtoTech.services.IImageService;
-import javax.xml.bind.JAXBException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +14,7 @@ import java.util.Optional;
 @RequestMapping("images")
 public class ImageController {
 
-    private IImageService iImageService;
+    private final IImageService iImageService;
 
     @Autowired
     public ImageController (IImageService iImageService) {
@@ -23,23 +22,23 @@ public class ImageController {
     }
 
     @GetMapping
-    public List<Image> list() throws JAXBException {
+    public List<Image> list()  {
         return iImageService.getAllImages();
     }
 
     @GetMapping("{id}")
-    public Optional<Image> getOne(@PathVariable("id") Image image) throws JAXBException {
+    public Optional<Image> getOne(@PathVariable("id") Image image)  {
         return iImageService.getImageByID(image.getId());
     }
 
     @PostMapping
-    public Image create(@RequestBody Image image) throws JAXBException {
+    public Image create(@RequestBody Image image) {
         return iImageService.createImage(image);
     }
 
     @PutMapping("{id}")
     public Image update(@PathVariable("id") Image imageFromFile, //положим в БД
-                            @RequestBody Image image) throws JAXBException { // от пользователя
+                            @RequestBody Image image)  { // от пользователя
         BeanUtils.copyProperties(image, imageFromFile, "id");
         return iImageService.updateImage(imageFromFile);
     }

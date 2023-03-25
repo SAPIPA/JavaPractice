@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class PhotoTechController {
 
-    private IPhototechService iPhototechService;
+    private final IPhototechService iPhototechService;
 
 
     @Autowired
