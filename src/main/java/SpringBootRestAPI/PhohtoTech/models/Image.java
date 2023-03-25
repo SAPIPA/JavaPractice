@@ -16,6 +16,14 @@ public class Image {
     @XmlElement
     private String  path_of_the_samurai;
 
+
+    public Image(Long id, String title, Long phototechId, String path_of_the_samurai) {
+        this.id = id;
+        this.title = title;
+        this.phototechId = phototechId;
+        this.path_of_the_samurai = path_of_the_samurai;
+    }
+
     public Long getId() {
         return id;
     }
