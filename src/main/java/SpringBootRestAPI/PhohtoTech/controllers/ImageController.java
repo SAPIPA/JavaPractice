@@ -27,8 +27,8 @@ public class ImageController {
     }
 
     @GetMapping("{id}")
-    public Optional<Image> getOne(@PathVariable("id") Image image)  {
-        return iImageService.getImageByID(image.getId());
+    public Image getOne(@PathVariable("id") Long id)  {
+        return iImageService.getImageByID(id);
     }
 
     @PostMapping

@@ -1,4 +1,4 @@
-package SpringBootRestAPI.PhohtoTech.Repo;
+/*package SpringBootRestAPI.PhohtoTech.Repo;
 
 import SpringBootRestAPI.PhohtoTech.models.Image;
 import jakarta.xml.bind.JAXBContext;
@@ -14,7 +14,6 @@ import java.util.Optional;
 
 @Repository
 public class ImageRepository implements IImageRepository {
-
     private final String XML_FILE_PATH = "C:\\Users\\SAPIPA\\Desktop\\Study\\4th _semester\\Introductory_practice\\PhohtoTech\\src\\main\\resources\\ImageContext.xml";
     private final JAXBContext context;
 
@@ -83,4 +82,4 @@ public class ImageRepository implements IImageRepository {
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         marshaller.marshal(images, new File(XML_FILE_PATH));
     }
-}
+}*/

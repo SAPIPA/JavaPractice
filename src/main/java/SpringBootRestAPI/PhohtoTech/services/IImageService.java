@@ -8,8 +8,9 @@ import java.util.Optional;
 public interface IImageService {
 
     List<Image> getAllImages();
-    Optional<Image> getImageByID(long id);
+    Image getImageByID(long id);
     Image createImage(Image image);
     Image updateImage(Image image);
     void deleteImage(long id);
+
 }

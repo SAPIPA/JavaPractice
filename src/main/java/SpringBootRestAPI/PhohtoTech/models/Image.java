@@ -1,20 +1,28 @@
 package SpringBootRestAPI.PhohtoTech.models;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+
 public class Image {
-    @XmlElement
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @XmlElement
+
     private String title;
-    @XmlElement
+
     private Long phototechId;
-    @XmlElement
+
     private String  path_of_the_samurai;
+
+    public Image(Long id, String title, Long phototechId, String path_of_the_samurai) {
+        this.id = id;
+        this.title = title;
+        this.phototechId = phototechId;
+        this.path_of_the_samurai = path_of_the_samurai;
+    }
 
     public Long getId() {
         return id;

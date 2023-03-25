@@ -1,4 +1,4 @@
-package SpringBootRestAPI.PhohtoTech.Repo;
+/*package SpringBootRestAPI.PhohtoTech.Repo;
 
 import SpringBootRestAPI.PhohtoTech.models.Image;
 import java.util.List;
@@ -11,4 +11,4 @@ public interface IImageRepository {
     Image save(Image image);
     Image delete(long id);
 
-}
+}*/
