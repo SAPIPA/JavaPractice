@@ -35,7 +35,7 @@ public class ImageService implements IImageService{
 
     @Override
     public Image updateImage(Image image) {
-        return iXmlFileManager.saveImages(image);
+        return null;
     }
 
     @Override
