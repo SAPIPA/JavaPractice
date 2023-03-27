@@ -1,27 +1,20 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<images>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><images>
     <image>
         <id>1</id>
-        <title>SMGpvl,s</title>
-        <phototechId>3</phototechId>
-        <path_of_the_samurai>SXvnj;sxkmdflk</path_of_the_samurai>
+        <title>Тут появится большой хуй E=====D</title>
+        <phototechId>2</phototechId>
+        <path_of_the_samurai>/path/to/image.jpg</path_of_the_samurai>
     </image>
     <image>
         <id>2</id>
-        <title>SMGpvl,s</title>
-        <phototechId>3</phototechId>
-        <path_of_the_samurai>SXvnj;sxkmdflk</path_of_the_samurai>
+        <title>sdbs</title>
+        <phototechId>1</phototechId>
+        <path_of_the_samurai>zjnzdnzd</path_of_the_samurai>
     </image>
     <image>
         <id>3</id>
-        <title>SMGpvl,s</title>
-        <phototechId>3</phototechId>
-        <path_of_the_samurai>SXvnj;sxkmdflk</path_of_the_samurai>
-    </image>
-    <image>
-        <id>4</id>
-        <title>SMGpvl,s</title>
-        <phototechId>3</phototechId>
-        <path_of_the_samurai>SXvnj;sxkmdflk</path_of_the_samurai>
+        <title>sdbs</title>
+        <phototechId>1</phototechId>
+        <path_of_the_samurai>zjnzdnzd</path_of_the_samurai>
     </image>
 </images>

@@ -57,12 +57,13 @@ Vue.component('phototech-form', {
 
 Vue.component('phototech-row', {
     props: ['phototech', 'editMethod', 'phototechs'],
-    template: '<div>' +
-        '<i>({{ phototech.id }})</i> {{ phototech.serial_number }}' +
-        '<span style="position: absolute; right: 0">' +
-        '<input type="button" value="Edit" @click="edit" />' +
-        '<input type="button" value="X" @click="del" />' +
-        '</span>' +
+    template:
+        '<div>' +
+        '   <i>({{ phototech.id }})</i> {{ phototech.serial_number }}' +
+        '   <span style="position: absolute; right: 0">' +
+        '      <input type="button" value="Edit" @click="edit" />' +
+        '      <input type="button" value="X" @click="del" />' +
+        '   </span>' +
         '</div>',
     methods: {
         edit: function() {

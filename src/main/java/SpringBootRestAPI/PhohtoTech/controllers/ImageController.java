@@ -8,43 +8,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("images")
 public class ImageController {
 
-    private final IImageService iImageService;
+    private final IImageService ImageService;
 
     @Autowired
-    public ImageController (IImageService iImageService) {
-        this.iImageService = iImageService;
+    public ImageController (IImageService ImageService) {
+        this.ImageService = ImageService;
     }
 
     @GetMapping
     public List<Image> list()  {
-        return iImageService.getAllImages();
+        return ImageService.getAllImages();
     }
 
     @GetMapping("{id}")
     public Image getOne(@PathVariable("id") Long id)  {
-        return iImageService.getImageByID(id);
+        return ImageService.getImageByID(id);
     }
 
     @PostMapping
     public Image create(@RequestBody Image image) {
-        return iImageService.createImage(image);
+        return ImageService.createImage(image);
     }
 
     @PutMapping("{id}")
     public Image update(@PathVariable("id") Image imageFromFile, //положим в БД
                             @RequestBody Image image)  { // от пользователя
         BeanUtils.copyProperties(image, imageFromFile, "id");
-        return iImageService.updateImage(imageFromFile);
+        return ImageService.updateImage(imageFromFile);
     }
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") Image image) {
-        iImageService.deleteImage(image.getId());
+        ImageService.deleteImage(image.getId());
     }
 }

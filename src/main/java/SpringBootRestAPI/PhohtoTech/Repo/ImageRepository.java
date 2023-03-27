@@ -1,85 +1,314 @@
-/*package SpringBootRestAPI.PhohtoTech.Repo;
+package SpringBootRestAPI.PhohtoTech.Repo;
 
-import SpringBootRestAPI.PhohtoTech.models.Image;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Marshaller;
-import jakarta.xml.bind.Unmarshaller;
-import lombok.SneakyThrows;
-import org.springframework.stereotype.Repository;
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import SpringBootRestAPI.PhohtoTech.models.Image;
+import org.springframework.stereotype.Repository;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 @Repository
 public class ImageRepository implements IImageRepository {
-    private final String XML_FILE_PATH = "C:\\Users\\SAPIPA\\Desktop\\Study\\4th _semester\\Introductory_practice\\PhohtoTech\\src\\main\\resources\\ImageContext.xml";
-    private final JAXBContext context;
 
-    public ImageRepository() {
+    private static final String FILE_NAME = "C:\\Users\\SAPIPA\\Desktop\\Study\\4th _semester\\Introductory_practice\\PhohtoTech\\src\\main\\resources\\ImageContext.xml";
+
+    public Image saveImage(Image image) {
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder;
         try {
-            context = JAXBContext.newInstance(Image.class);
-        } catch (JAXBException e) {
+            documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            throw new RuntimeException(e);
+        }
+
+        File file = new File(FILE_NAME);
+        Document document;
+        Element root;
+        if (file.exists()) {            // If the file already exists, parse the existing document
+            try {
+                document = documentBuilder.parse(file);
+                root = document.getDocumentElement();
+            } catch (SAXException | IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {            // If the file does not exist, create a new document
+            document = documentBuilder.newDocument();
+            root = document.createElement("images");
+            document.appendChild(root);
+        }
+
+        Element element = document.createElement("image");
+        root.appendChild(element);
+
+        Long idField = image.getId();
+        Element idElement = document.createElement("id");
+        idElement.appendChild(document.createTextNode(String.valueOf(idField)));
+        element.appendChild(idElement);
+
+        String titleField = image.getTitle();
+        Element titleElement = document.createElement("title");
+        titleElement.appendChild(document.createTextNode(titleField));
+        element.appendChild(titleElement);
+
+        Long phototechIdField = image.getPhototechId();
+        Element phototechIdElement = document.createElement("phototechId");
+        phototechIdElement.appendChild(document.createTextNode(String.valueOf(phototechIdField)));
+        element.appendChild(phototechIdElement);
+
+        String path_of_the_samuraiField = image.getPath_of_the_samurai();
+        Element path_of_the_samuraiElement = document.createElement("path_of_the_samurai");
+        path_of_the_samuraiElement.appendChild(document.createTextNode(path_of_the_samuraiField));
+        element.appendChild(path_of_the_samuraiElement);
+
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer;
+        try {
+            transformer = transformerFactory.newTransformer();
+        } catch (TransformerConfigurationException e) {
+            throw new RuntimeException(e);
+        }
+        DOMSource source = new DOMSource(document);
+
+        FileOutputStream outputStream;
+        try {
+            outputStream = new FileOutputStream(file);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        StreamResult result = new StreamResult(outputStream);
+
+        try {
+            transformer.transform(source, result);
+        } catch (TransformerException e) {
+            throw new RuntimeException(e);
+        }
+        return image;
+    }
+
+    public void deleteImage(Long id) {
+        if (!new File(FILE_NAME).exists()) {
+            throw new RuntimeException("File not found: " + FILE_NAME);
+        }
+
+        FileInputStream fileInputStream;
+        try {
+            fileInputStream = new FileInputStream(FILE_NAME);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder;
+        try {
+            builder = factory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            throw new RuntimeException(e);
+        }
+        Document document;
+        try {
+            document = builder.parse(fileInputStream);
+        } catch (SAXException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        NodeList nodeList = document.getElementsByTagName("image");
+
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+            Element element = (Element) node;
+            Long idField = Long.parseLong(element.getElementsByTagName("id").item(0).getTextContent());
+
+            if (idField == id) {
+                node.getParentNode().removeChild(node);
+                break;
+            }
+        }
+
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer;
+        try {
+            transformer = transformerFactory.newTransformer();
+        } catch (TransformerConfigurationException e) {
+            throw new RuntimeException(e);
+        }
+        DOMSource source = new DOMSource(document);
+
+        FileOutputStream outputStream;
+        try {
+            outputStream = new FileOutputStream(new File(FILE_NAME));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        StreamResult result = new StreamResult(outputStream);
+
+        try {
+            transformer.transform(source, result);
+        } catch (TransformerException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static class ImageList {
-     private List<Image> images = new ArrayList<>();
+    public List<Image> getAllimagess() {
 
-     public List<Image> getImages() {
-     return images;
-     }
-
-     public void setImages(List<Image> images) {
-     this.images = images;
-     }
-     }
-
-    @SneakyThrows
-    @Override
-    public List<Image> findAll()  {
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        ImageList images = (ImageList) unmarshaller.unmarshal(new File(XML_FILE_PATH));
-        return images.getImages();
-    }
-
-    @Override
-    public Optional<Image> findById(long id)  {
-        List<Image> images = findAll();
-        return images.stream().filter(i -> i.getId() == id).findFirst();
-    }
-
-    @SneakyThrows
-    @Override
-    public Image save(Image image) {
-        List<Image> images = findAll();
-        long maxId = images.stream().mapToLong(Image::getId).max().orElse(0);
-        image.setId(maxId + 1);
-        images.add(image);
-        saveAll(images);
-        return image;
-    }
-
-    @SneakyThrows
-    @Override
-    public Image delete(long id) {
-        List<Image> images = findAll();
-        Optional<Image> imageToDelete = images.stream().filter(i -> i.getId() == id).findFirst();
-        if (imageToDelete.isPresent()) {
-            Image deletedImage = imageToDelete.get();
-            images.remove(deletedImage);
-            saveAll(images);
-            return deletedImage;
-        } else {
-            return null;
+        FileInputStream fileInputStream;
+        try {
+            fileInputStream = new FileInputStream(new File(FILE_NAME));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder;
+        try {
+            builder = factory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            throw new RuntimeException(e);
+        }
+        Document document;
+        try {
+            document = builder.parse(fileInputStream);
+        } catch (SAXException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        NodeList nodeList = document.getElementsByTagName("images");
+        List<Image> images = new ArrayList<>();
+
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node imagesNode = nodeList.item(i);
+            NodeList imageNodes = imagesNode.getChildNodes();
+
+            for (int j = 0; j < imageNodes.getLength(); j++) {
+                Node imageNode = imageNodes.item(j);
+
+                if (imageNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) imageNode;
+
+                    Long idField = Long.parseLong(element.getElementsByTagName("id").item(0).getTextContent());
+                    String titleField = element.getElementsByTagName("title").item(0).getTextContent();
+                    Long phototechIdField = Long.parseLong(element.getElementsByTagName("phototechId").item(0).getTextContent());
+                    String path_of_the_samuraiField = element.getElementsByTagName("path_of_the_samurai").item(0).getTextContent();
+
+                    Image image = new Image(idField, titleField, phototechIdField, path_of_the_samuraiField);
+                    images.add(image);
+                }
+            }
+        }
+        return images;
     }
 
-    private void saveAll(List<Image> images) throws JAXBException {
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshaller.marshal(images, new File(XML_FILE_PATH));
+    public Image getImageById(Long id) {
+
+        FileInputStream fileInputStream;
+        try {
+            fileInputStream = new FileInputStream(new File(FILE_NAME));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder;
+        try {
+            builder = factory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            throw new RuntimeException(e);
+        }
+        Document document;
+        try {
+            document = builder.parse(fileInputStream);
+        } catch (SAXException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        NodeList nodeList = document.getElementsByTagName("image");
+
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+            Element element = (Element) node;
+            Long idField = Long.parseLong((element.getElementsByTagName("id").item(0).getTextContent()));
+
+            if (idField == id) {
+                Long phototechIdField = Long.parseLong((element.getElementsByTagName("phototechId").item(0).getTextContent()));
+                String titleField = element.getElementsByTagName("title").item(0).getTextContent();
+                String path_of_the_samuraiField = element.getElementsByTagName("path_of_the_samurai").item(0).getTextContent();
+                return new Image(idField, titleField, phototechIdField, path_of_the_samuraiField);
+            }
+        }
+        return null;
     }
-}*/
+
+    public Image updateImage(Image image) {
+        Long id = image.getId();
+
+        FileInputStream fileInputStream;
+        try {
+            fileInputStream = new FileInputStream(new File(FILE_NAME));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder;
+        try {
+            builder = factory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            throw new RuntimeException(e);
+        }
+        Document document;
+        try {
+            document = builder.parse(fileInputStream);
+        } catch (SAXException | IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        NodeList nodeList = document.getElementsByTagName("image");
+
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+            Element element = (Element) node;
+            Long idField = Long.parseLong((element.getElementsByTagName("id").item(0).getTextContent()));
+
+            if (idField.equals(id)) {
+                element.getElementsByTagName("phototechId").item(0).setTextContent(Long.toString(image.getPhototechId()));
+                element.getElementsByTagName("title").item(0).setTextContent(image.getTitle());
+                element.getElementsByTagName("path_of_the_samurai").item(0).setTextContent(image.getPath_of_the_samurai());
+
+                try {
+                    TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                    Transformer transformer = transformerFactory.newTransformer();
+                    DOMSource source = new DOMSource(document);
+                    StreamResult result = new StreamResult(new File(FILE_NAME));
+                    transformer.transform(source, result);
+                } catch (TransformerException e) {
+                    throw new RuntimeException(e);
+                }
+
+                return image;
+            }
+        }
+
+        return null;
+    }
+
+
+    //Image newImage = new Image(1L, "Тут появится большой хуй E=====D", 2L, "/path/to/image.jpg");
+
+    //Image updateImage = updateImage(newImage);
+
+}

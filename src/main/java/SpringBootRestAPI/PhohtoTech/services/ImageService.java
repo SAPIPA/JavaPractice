@@ -1,6 +1,6 @@
 package SpringBootRestAPI.PhohtoTech.services;
 
-import SpringBootRestAPI.PhohtoTech.Repo.IXmlFileManager;
+import SpringBootRestAPI.PhohtoTech.Repo.IImageRepository;
 import SpringBootRestAPI.PhohtoTech.models.Image;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,34 +12,34 @@ import java.util.List;
 public class ImageService implements IImageService{
 
 
-    private final IXmlFileManager iXmlFileManager;
+    private final IImageRepository iImageRepository;
     @Autowired
-    public ImageService(@Qualifier("xmlFileManager") IXmlFileManager iXmlFileManager) {
-        this.iXmlFileManager = iXmlFileManager;
+    public ImageService(@Qualifier("imageRepository") IImageRepository iImageRepository) {
+        this.iImageRepository = iImageRepository;
     }
 
     @Override
     public List<Image> getAllImages(){
-        return iXmlFileManager.getAllimagess();
+        return iImageRepository.getAllimagess();
     }
 
     @Override
     public Image getImageByID(long id) {
-        return iXmlFileManager.getImageById(id);
+        return iImageRepository.getImageById(id);
     }
 
     @Override
     public Image createImage(Image image) {
-        return iXmlFileManager.saveImages(image);
+        return iImageRepository.saveImage(image);
     }
 
     @Override
     public Image updateImage(Image image) {
-        return iXmlFileManager.saveImages(image);
+        return iImageRepository.updateImage(image);
     }
 
     @Override
     public void deleteImage(long id) {
-        iXmlFileManager.deleteimages(id);
+        iImageRepository.deleteImage(id);
     }
 }

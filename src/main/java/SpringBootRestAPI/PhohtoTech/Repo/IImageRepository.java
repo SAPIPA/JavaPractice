@@ -1,14 +1,15 @@
-/*package SpringBootRestAPI.PhohtoTech.Repo;
+package SpringBootRestAPI.PhohtoTech.Repo;
 
 import SpringBootRestAPI.PhohtoTech.models.Image;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
-import java.util.Optional;
 
+@Repository
 public interface IImageRepository {
-
-    List<Image> findAll();
-    Optional<Image> findById(long id) ;
-    Image save(Image image);
-    Image delete(long id);
-
-}*/
+    Image saveImage(Image imageS);
+    void deleteImage(Long id);
+    List<Image> getAllimagess();
+    Image getImageById(Long id);
+    Image updateImage(Image image);
+}
