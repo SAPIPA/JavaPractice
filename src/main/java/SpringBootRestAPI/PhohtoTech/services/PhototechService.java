@@ -44,6 +44,6 @@ public class PhototechService implements IPhototechService {
 
     @Override
     public void deletePhototech(long id) {
-
+        iPhototechRepository.deleteById(id);
     }
 }

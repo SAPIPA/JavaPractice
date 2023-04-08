@@ -5,16 +5,5 @@
         <phototechId>2</phototechId>
         <path_of_the_samurai>/path/to/image.jpg</path_of_the_samurai>
     </image>
-    <image>
-        <id>2</id>
-        <title>sdbs</title>
-        <phototechId>1</phototechId>
-        <path_of_the_samurai>zjnzdnzd</path_of_the_samurai>
-    </image>
-    <image>
-        <id>3</id>
-        <title>sdbs</title>
-        <phototechId>1</phototechId>
-        <path_of_the_samurai>zjnzdnzd</path_of_the_samurai>
-    </image>
-</images>
+    
+<image><id>2</id><title>Тут появится большой хуй E=====D </title><phototechId>1</phototechId><path_of_the_samurai>zjnzdnzd</path_of_the_samurai></image></images>

@@ -17,6 +17,4 @@ public class PhohtoTechApplication {
 
 		//imageRepository.deleteImage(1L);
 	}
-
-
 }

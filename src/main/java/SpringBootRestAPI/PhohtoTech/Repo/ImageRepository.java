@@ -298,17 +298,9 @@ public class ImageRepository implements IImageRepository {
                 } catch (TransformerException e) {
                     throw new RuntimeException(e);
                 }
-
                 return image;
             }
         }
-
         return null;
     }
-
-
-    //Image newImage = new Image(1L, "Тут появится большой хуй E=====D", 2L, "/path/to/image.jpg");
-
-    //Image updateImage = updateImage(newImage);
-
 }

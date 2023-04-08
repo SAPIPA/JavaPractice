@@ -36,14 +36,14 @@ public class ImageController {
     }
 
     @PutMapping("{id}")
-    public Image update(@PathVariable("id") Image imageFromFile, //положим в БД
-                            @RequestBody Image image)  { // от пользователя
-        BeanUtils.copyProperties(image, imageFromFile, "id");
-        return ImageService.updateImage(imageFromFile);
+    public Image update(
+            //@PathVariable("id") Long id,
+                            @RequestBody Image image)  {
+        return ImageService.updateImage(image);
     }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable("id") Image image) {
-        ImageService.deleteImage(image.getId());
+    public void delete(@PathVariable("id") Long id) {
+        ImageService.deleteImage(id);
     }
 }
