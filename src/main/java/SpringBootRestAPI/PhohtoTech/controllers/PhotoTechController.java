@@ -48,7 +48,3 @@ public class PhotoTechController {
         PhototechService.deletePhototech(phototech.getId());
     }
 }
-
-    //fetch('/images', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({title: 'Ещё одна картинка'})}).then(console.log)
-    //fetch('/images/502', {method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({title: 'Ещё одна картинка(уже обновленная)', id:502})}).then(console.log)
-    //fetch('/images/502', {method: 'DELETE'})*/

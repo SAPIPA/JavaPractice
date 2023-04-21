@@ -31,7 +31,8 @@ aside {
     float: left;
 }
 
-main .phototechs {
+main .phototechs,
+.images {
     margin-bottom: 50px;
     background-color: red;
     padding: 20px;
@@ -85,15 +86,29 @@ form button:hover {
     transform: scale(1.1)
 } 
 
-.phototechs form {
+.phototechs form,
+.images form {
     margin-top: 20px;
 }
 
 .phototechs form input,
-.phototechs form button {
+.phototechs form button,
+.images form input,
+.images form button {
    background: #333; 
 }
 
-.phototechs form button:hover {
+.phototechs form button:hover,
+.images form button:hover {
     transform: scale(1.01);
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+a:hover {
+    color: green;
 }

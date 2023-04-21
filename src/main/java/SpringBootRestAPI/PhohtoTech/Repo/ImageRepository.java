@@ -6,10 +6,7 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
@@ -30,6 +27,7 @@ public class ImageRepository implements IImageRepository {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder;
         try {
+
             documentBuilder = documentBuilderFactory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
             throw new RuntimeException(e);
@@ -54,7 +52,10 @@ public class ImageRepository implements IImageRepository {
         Element element = document.createElement("image");
         root.appendChild(element);
 
-        Long idField = image.getId();
+        List<Image> IMAGES = getAllimagess();
+        Image imagE = IMAGES.get(IMAGES.size() - 1);
+
+        Long idField = imagE.getId() + 1;
         Element idElement = document.createElement("id");
         idElement.appendChild(document.createTextNode(String.valueOf(idField)));
         element.appendChild(idElement);
@@ -78,6 +79,8 @@ public class ImageRepository implements IImageRepository {
         Transformer transformer;
         try {
             transformer = transformerFactory.newTransformer();
+            //transformer.setOutputProperty(OutputKeys.INDENT, "yes"); // добавляем отступы
+            //transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4"); // задаем количество пробелов для отступа
         } catch (TransformerConfigurationException e) {
             throw new RuntimeException(e);
         }

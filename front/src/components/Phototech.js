@@ -1,6 +1,8 @@
 import React from "react"
 import AddPhototech from "./AddPhototech"
-import {IoCloseCircleSharp, IoHammerSharp} from 'react-icons/io5'
+import {IoCloseCircleSharp, IoHammerSharp, IoList} from 'react-icons/io5'
+import { BrowserRouter as Router, Route, Switch, BrowserRouter, Routes, NavLink } from "react-router-dom"
+
 
 class Phototech extends React.Component {
     constructor(props) {
@@ -27,9 +29,9 @@ class Phototech extends React.Component {
                 <h3>{this.phototech.flash_range}</h3>
                 
                 {this.state.editForm && <AddPhototech phototech={this.phototech} onAdd={this.props.onEdit} />}
+                <NavLink to={`/${this.phototech.id}`}>Список фотографий</NavLink>
             </div>
         )
     }
 }
-
 export default Phototech 

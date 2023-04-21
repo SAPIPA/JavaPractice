@@ -12,6 +12,7 @@ class AddPhototech extends React.Component {
             menu_language: "",
             flash_range: ""
         }
+
     }
   render() {
     return (
@@ -23,7 +24,15 @@ class AddPhototech extends React.Component {
             <input placeholder="Язык меню" onChange={(e) => this.setState({menu_language: e.target.value})}/>
             <input placeholder="Дальность вспышки" onChange={(e) => this.setState({flash_range: e.target.value})}/>
             <button type="button" onClick={() => {
-                this.myForm.reset()
+                    if(!this.state.serial_number || 
+                        !this.state.matrix_resolution || 
+                        !this.state.viewfinder_type || 
+                        !this.state.optical_zoom || 
+                        !this.state.menu_language || 
+                        !this.state.flash_range) {
+                        alert("Все поля должны быть заполнены")
+                        return
+                    }
                 this.phototechAdd = {
                     serial_number: this.state.serial_number,
                     matrix_resolution: this.state.matrix_resolution,
@@ -32,10 +41,21 @@ class AddPhototech extends React.Component {
                     menu_language: this.state.menu_language,
                     flash_range: this.state.flash_range,
                 }
-                if(this.props.phototech)
+                if(this.props.phototech) {
                     this.phototechAdd.id = this.props.phototech.id
-                this.props.onAdd(this.phototechAdd)}
-            }>Добавить</button>
+                }
+                this.props.onAdd(this.phototechAdd)
+                this.phototechAdd = {}
+                this.setState({
+                    serial_number: "",
+                    matrix_resolution: "",
+                    viewfinder_type: "",
+                    optical_zoom: "",
+                    menu_language: "",
+                    flash_range: ""
+                })
+                this.myForm.reset()
+            }}>Добавить</button>
         </form>
     )
   }
