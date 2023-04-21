@@ -1,15 +1,15 @@
 package SpringBootRestAPI.PhohtoTech.Repo;
 
 import SpringBootRestAPI.PhohtoTech.models.Image;
-import javax.xml.bind.JAXBException;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
-import java.util.Optional;
 
+@Repository
 public interface IImageRepository {
-
-    List<Image> findAll() throws JAXBException;
-    Optional<Image> findById(long id) throws JAXBException;
-    Image save(Image image) throws JAXBException;
-    Image delete(long id) throws JAXBException;
-
+    Image saveImage(Image imageS);
+    void deleteImage(Long id);
+    List<Image> getAllimagess();
+    Image getImageById(Long id);
+    Image updateImage(Image image);
 }

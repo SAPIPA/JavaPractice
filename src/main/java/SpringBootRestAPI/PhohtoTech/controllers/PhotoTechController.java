@@ -13,42 +13,38 @@ import java.util.Optional;
 
 public class PhotoTechController {
 
-    private IPhototechService iPhototechService;
+    private final IPhototechService PhototechService;
 
 
     @Autowired
-    public  PhotoTechController(IPhototechService iPhototechService) {
-        this.iPhototechService = iPhototechService;
+    public  PhotoTechController(IPhototechService PhototechService) {
+        this.PhototechService = PhototechService;
     }
 
     @GetMapping
     public Iterable<Phototech> list() {
-        return iPhototechService.getAllPhototechs();
+        return PhototechService.getAllPhototechs();
     }
 
     @GetMapping("{id}")
     public Optional<Phototech> getOne(@PathVariable("id") Phototech phototech) {
-        return iPhototechService.getPhototechByID(phototech.getId());
+        return PhototechService.getPhototechByID(phototech.getId());
     }
 
     @PostMapping
     public Phototech create(@RequestBody Phototech phototech) {
-        return iPhototechService.createPhototech(phototech);
+        return PhototechService.createPhototech(phototech);
     }
 
     @PutMapping("{id}")
     public Phototech update(@PathVariable("id") Phototech phototechFromDb, //положим в БД
                             @RequestBody Phototech phototech) { // от пользователя
         BeanUtils.copyProperties(phototech, phototechFromDb, "id");
-        return iPhototechService.updatePhototech(phototechFromDb);
+        return PhototechService.updatePhototech(phototechFromDb);
     }
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") Phototech phototech) {
-        iPhototechService.deletePhototech(phototech.getId());
+        PhototechService.deletePhototech(phototech.getId());
     }
 }
-
-/*//fetch('/images', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({title: 'Ещё одна картинка'})}).then(console.log)
-    //fetch('/images/502', {method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({title: 'Ещё одна картинка(уже обновленная)', id:502})}).then(console.log)
-    //fetch('/images/502', {method: 'DELETE'})*/

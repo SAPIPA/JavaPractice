@@ -1,21 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<imageList>
-    <image>
-        <id>1</id>
-        <title>Image 1</title>
-        <phototechId>1</phototechId>
-        <path_of_the_samurai>path/to/image1.jpg</path_of_the_samurai>
-    </image>
-    <image>
-        <id>2</id>
-        <title>Image 2</title>
-        <phototechId>1</phototechId>
-        <path_of_the_samurai>path/to/image2.jpg</path_of_the_samurai>
-    </image>
-    <image>
-        <id>3</id>
-        <title>Image 3</title>
-        <phototechId>2</phototechId>
-        <path_of_the_samurai>path/to/image3.jpg</path_of_the_samurai>
-    </image>
-</imageList>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<images>
+
+</images>

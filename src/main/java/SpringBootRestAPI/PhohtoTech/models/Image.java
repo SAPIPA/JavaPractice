@@ -1,14 +1,28 @@
 package SpringBootRestAPI.PhohtoTech.models;
-import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+
 public class Image {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String title;
 
     private Long phototechId;
 
     private String  path_of_the_samurai;
+
+    public Image(Long id, String title, Long phototechId, String path_of_the_samurai) {
+        this.id = id;
+        this.title = title;
+        this.phototechId = phototechId;
+        this.path_of_the_samurai = path_of_the_samurai;
+    }
 
     public Long getId() {
         return id;

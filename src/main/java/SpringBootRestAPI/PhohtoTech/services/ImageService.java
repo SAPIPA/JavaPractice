@@ -2,45 +2,44 @@ package SpringBootRestAPI.PhohtoTech.services;
 
 import SpringBootRestAPI.PhohtoTech.Repo.IImageRepository;
 import SpringBootRestAPI.PhohtoTech.models.Image;
-import javax.xml.bind.JAXBException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ImageService implements IImageService{
 
-    private final IImageRepository iImageRepository;
 
+    private final IImageRepository iImageRepository;
     @Autowired
-    public ImageService(IImageRepository iImageRepository) {
+    public ImageService(@Qualifier("imageRepository") IImageRepository iImageRepository) {
         this.iImageRepository = iImageRepository;
     }
 
     @Override
-    public List<Image> getAllImages() throws JAXBException {
-        return iImageRepository.findAll();
+    public List<Image> getAllImages(){
+        return iImageRepository.getAllimagess();
     }
 
     @Override
-    public Optional<Image> getImageByID(long id) throws JAXBException {
-        return iImageRepository.findById(id);
+    public Image getImageByID(long id) {
+        return iImageRepository.getImageById(id);
     }
 
     @Override
-    public Image createImage(Image image) throws JAXBException {
-        return iImageRepository.save(image);
+    public Image createImage(Image image) {
+        return iImageRepository.saveImage(image);
     }
 
     @Override
-    public Image updateImage(Image image) throws JAXBException {
-        return iImageRepository.save(image);
+    public Image updateImage(Image image) {
+        return iImageRepository.updateImage(image);
     }
 
     @Override
     public void deleteImage(long id) {
-
+        iImageRepository.deleteImage(id);
     }
 }
