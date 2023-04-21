@@ -4,7 +4,7 @@ import Image from "./Image"
 class Images extends React.Component {
     render() {
         const filteredImages = this.props.images.filter(image => image.phototechId == this.props.phototech_id);
-        if (this.props.images.length > 0)
+        if (filteredImages.length > 0)
             return (<div>
                 {filteredImages.map((el => (
                     <Image phototech_id = {this.props.phototech_id} onEdit={this.props.onEdit} onDelete={this.props.onDelete} key={el.id} image={el}/>

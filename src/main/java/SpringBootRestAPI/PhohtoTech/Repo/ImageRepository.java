@@ -53,9 +53,15 @@ public class ImageRepository implements IImageRepository {
         root.appendChild(element);
 
         List<Image> IMAGES = getAllimagess();
-        Image imagE = IMAGES.get(IMAGES.size() - 1);
+        Long idField;
+        if (IMAGES.size() == 0) {
+            idField = 1L;
+        }
+        else {
+            Image imagE = IMAGES.get(IMAGES.size() - 1);
+            idField = imagE.getId() + 1;
+        }
 
-        Long idField = imagE.getId() + 1;
         Element idElement = document.createElement("id");
         idElement.appendChild(document.createTextNode(String.valueOf(idField)));
         element.appendChild(idElement);
