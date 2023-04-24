@@ -21,7 +21,7 @@ import org.xml.sax.SAXException;
 @Repository
 public class ImageRepository implements IImageRepository {
 
-    private static final String FILE_NAME = "C:\\Users\\SAPIPA\\Desktop\\Study\\4th _semester\\Introductory_practice\\PhohtoTech\\src\\main\\resources\\ImageContext.xml";
+    private static final String FILE_NAME = "src\\main\\resources\\ImageContext.xml";
 
     public Image saveImage(Image image) {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
