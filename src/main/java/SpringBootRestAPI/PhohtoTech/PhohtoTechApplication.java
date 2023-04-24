@@ -13,8 +13,5 @@ public class PhohtoTechApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PhohtoTechApplication.class, args);
 
-		//ImageRepository imageRepository = new ImageRepository();
-
-		//imageRepository.deleteImage(1L);
 	}
 }
